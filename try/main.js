@@ -33,7 +33,6 @@ function setup() {
     noFill();
     mic = new p5.AudioIn();
     amp = new p5.Amplitude();
-    amp.start();
     fft = new p5.FFT(0.8,128);
 }
 
