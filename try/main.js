@@ -1,5 +1,6 @@
 let tracker ='m';
 
+let mic, fft, amp, canv;
 
 function change(){
     var bars = document.getElementById('bars');
@@ -10,9 +11,11 @@ function change(){
     if(tracker == 'm'){
         statusLabel.innerHTML = "...Listening...";
         tracker = 'a';
+        mic.start();
     }else{
         statusLabel.innerHTML = "Press to start";
         tracker = 'm';
+        mic.stop();
     }
     
     bglayer.classList.toggle('scaleup');
@@ -23,17 +26,15 @@ function change(){
 
 
 // p5js 
-let music, fft, amp, canv;
-function preload(){
-    music = loadSound("mylib/music/preaching.mp3");
-}
+
 function setup() {
     canv = createCanvas(80, 80);
     canv.parent("bars");
     noFill();
+    mic = new p5.AudioIn();
     amp = new p5.Amplitude();
-    music.loop();
     fft = new p5.FFT(0.8,128);
+    fft.setInput(mic);
 }
 
 function draw() {
